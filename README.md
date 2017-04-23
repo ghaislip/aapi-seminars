@@ -1,1 +1,1 @@
-# aapi-seminars
+# AAPi Seminars
