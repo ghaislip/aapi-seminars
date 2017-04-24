@@ -2,17 +2,19 @@
 using Aapi.Seminars.Models;
 using Aapi.Seminars.Models.Seminars;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Aapi.Seminars.DataServices
 {
     public interface ISeminarsDataService
     {
-        SeminarsViewModel GetAll(int pageNumber, int pageSize);
-        SeminarViewModel GetById(int id);
-        void Add(SeminarAddCommandModel seminarAddCommandModel);
-        void Update(SeminarUpdateCommandModel seminarUpdateCommandModel);
-        void Delete(int id);
+        Task<SeminarsViewModel> GetAll(int pageNumber, int pageSize);
+        Task<SeminarViewModel> GetById(int id);
+        Task Add(SeminarAddCommandModel seminarAddCommandModel);
+        Task Update(SeminarUpdateCommandModel seminarUpdateCommandModel);
+        Task Delete(int id);
     }
 
     public class SeminarsDataService : DataServiceBase<Seminar>, ISeminarsDataService
@@ -22,48 +24,48 @@ namespace Aapi.Seminars.DataServices
         {
         }
 
-        public SeminarsViewModel GetAll(int pageNumber, int pageSize)
+        public async Task<SeminarsViewModel> GetAll(int pageNumber, int pageSize)
         {
             return new SeminarsViewModel
             {
-                Results = this.DbSet
+                Results = await this.DbSet
                     .OrderBy(x => x.Id)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .ToList(),
-                TotalItemCount = this.DbSet
-                    .Count()
+                    .ToListAsync(),
+                TotalItemCount = await this.DbSet
+                    .CountAsync()
             };
         }
 
-        public SeminarViewModel GetById(int id)
+        public async Task<SeminarViewModel> GetById(int id)
         {
-            return this.DbSet
+            return await this.DbSet
                 .Select(x => this.Mapper.Map<SeminarViewModel>(x))
-                .SingleOrDefault(x => x.Id == id);
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Add(SeminarAddCommandModel seminarAddCommandModel)
+        public async Task Add(SeminarAddCommandModel seminarAddCommandModel)
         {
             var seminar = this.Mapper.Map<Seminar>(seminarAddCommandModel);
             this.AapiSeminarsContext.Seminars.Add(seminar);
-            this.AapiSeminarsContext.SaveChanges();
+            await this.AapiSeminarsContext.SaveChangesAsync();
         }
 
-        public void Update(SeminarUpdateCommandModel seminarUpdateCommandModel)
+        public async Task Update(SeminarUpdateCommandModel seminarUpdateCommandModel)
         {
-            var seminarToUpdate = this.DbSet
-                .SingleOrDefault(x => x.Id == seminarUpdateCommandModel.Id);
+            var seminarToUpdate = await this.DbSet
+                .SingleOrDefaultAsync(x => x.Id == seminarUpdateCommandModel.Id);
             this.Mapper.Map(seminarUpdateCommandModel, seminarToUpdate);
-            this.AapiSeminarsContext.SaveChanges();
+            await this.AapiSeminarsContext.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            var seminarToDelete = this.DbSet
-                .Single(x => x.Id == id);
+            var seminarToDelete = await this.DbSet
+                .SingleAsync(x => x.Id == id);
             this.AapiSeminarsContext.Seminars.Remove(seminarToDelete);
-            this.AapiSeminarsContext.SaveChanges();
+            await this.AapiSeminarsContext.SaveChangesAsync();
         }
     }
 }

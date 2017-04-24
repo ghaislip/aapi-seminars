@@ -15,64 +15,64 @@ namespace Aapi.Seminars.Controllers
     public class SeminarsControllerTests
     {
         [TestMethod]
-        public void GetAll_ShouldReturnCorrectValue()
+        public async Task GetAll_ShouldReturnCorrectValue()
         {
             var seminarsViewModel = new SeminarsViewModel();
             var seminarsDataServiceMock = new Mock<ISeminarsDataService>();
-            seminarsDataServiceMock.Setup(x => x.GetAll(1, 25)).Returns(seminarsViewModel);
+            seminarsDataServiceMock.Setup(x => x.GetAll(1, 25)).ReturnsAsync(seminarsViewModel);
             var seminarsController = new SeminarsController(null, seminarsDataServiceMock.Object);
 
-            var result = seminarsController.GetAll();
+            var result = await seminarsController.GetAll();
 
             seminarsDataServiceMock.Verify(x => x.GetAll(1, 25));
             Assert.AreEqual(seminarsViewModel, result);
         }
 
         [TestMethod]
-        public void GetById_ShouldReturnCorrectValue()
+        public async Task GetById_ShouldReturnCorrectValue()
         {
             var seminarViewModel = new SeminarViewModel();
             var seminarsDataServiceMock = new Mock<ISeminarsDataService>();
-            seminarsDataServiceMock.Setup(x => x.GetById(42)).Returns(seminarViewModel);
+            seminarsDataServiceMock.Setup(x => x.GetById(42)).ReturnsAsync(seminarViewModel);
             var seminarsController = new SeminarsController(null, seminarsDataServiceMock.Object);
 
-            var result = seminarsController.GetById(42);
+            var result = await seminarsController.GetById(42);
 
             seminarsDataServiceMock.Verify(x => x.GetById(42));
             Assert.AreEqual(seminarViewModel, result);
         }
 
         [TestMethod]
-        public void Add_ShouldCallAddMethodOfSeminarsDataServiceWithCorrectParameters()
+        public async Task Add_ShouldCallAddMethodOfSeminarsDataServiceWithCorrectParameters()
         {
             var seminarAddCommandModel = new SeminarAddCommandModel();
             var seminarsDataServiceMock = new Mock<ISeminarsDataService>();
             var seminarsController = new SeminarsController(null, seminarsDataServiceMock.Object);
 
-            seminarsController.Add(seminarAddCommandModel);
+            await seminarsController.Add(seminarAddCommandModel);
 
             seminarsDataServiceMock.Verify(x => x.Add(seminarAddCommandModel));
         }
 
         [TestMethod]
-        public void Update_ShouldCallUpdateMethodOfSeminarsDataServiceWithCorrectParameters()
+        public async Task Update_ShouldCallUpdateMethodOfSeminarsDataServiceWithCorrectParameters()
         {
             var seminarUpdateCommandModel = new SeminarUpdateCommandModel();
             var seminarsDataServiceMock = new Mock<ISeminarsDataService>();
             var seminarsController = new SeminarsController(null, seminarsDataServiceMock.Object);
 
-            seminarsController.Update(seminarUpdateCommandModel);
+            await seminarsController.Update(seminarUpdateCommandModel);
 
             seminarsDataServiceMock.Verify(x => x.Update(seminarUpdateCommandModel));
         }
 
         [TestMethod]
-        public void Delete_ShouldCallDeleteMethodOfSeminarsDataServiceWithCorrectParameters()
+        public async Task Delete_ShouldCallDeleteMethodOfSeminarsDataServiceWithCorrectParameters()
         {
             var seminarsDataServiceMock = new Mock<ISeminarsDataService>();
             var seminarsController = new SeminarsController(null, seminarsDataServiceMock.Object);
 
-            seminarsController.Delete(42);
+            await seminarsController.Delete(42);
 
             seminarsDataServiceMock.Verify(x => x.Delete(42));
         }

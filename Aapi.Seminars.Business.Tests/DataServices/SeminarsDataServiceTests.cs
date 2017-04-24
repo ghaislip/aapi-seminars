@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Aapi.Seminars.DataServices
 {
@@ -16,7 +17,7 @@ namespace Aapi.Seminars.DataServices
         private IMapper Mapper { get; set; }
 
         [TestInitialize]
-        public void Initialize()
+        public async Task Initialize()
         {
             var options = new DbContextOptionsBuilder<AapiSeminarsContext>()
                 .UseInMemoryDatabase(this.TestContext.TestName)
@@ -24,7 +25,7 @@ namespace Aapi.Seminars.DataServices
             this.TestAapiSeminarsContext = new AapiSeminarsContext(options);
             this.TestAapiSeminarsContext.Seminars.Add(new Seminar { Id = 2, Name = "Summer Seminar" });
             this.TestAapiSeminarsContext.Seminars.Add(new Seminar { Id = 3, Name = "Winter Seminar" });
-            this.TestAapiSeminarsContext.SaveChanges();
+            await this.TestAapiSeminarsContext.SaveChangesAsync();
 
             this.Mapper = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Seminar, SeminarViewModel>();
@@ -34,11 +35,11 @@ namespace Aapi.Seminars.DataServices
         }
 
         [TestMethod]
-        public void GetAll_ShouldReturnCorrectResult()
+        public async Task GetAll_ShouldReturnCorrectResult()
         {
             var seminarsDataService = new SeminarsDataService(this.TestAapiSeminarsContext, this.Mapper);
 
-            var seminars = seminarsDataService.GetAll(1, 25);
+            var seminars = await seminarsDataService.GetAll(1, 25);
 
             Assert.IsNotNull(seminars);
             Assert.AreEqual(2, seminars.TotalItemCount);
@@ -46,18 +47,18 @@ namespace Aapi.Seminars.DataServices
         }
 
         [TestMethod]
-        public void GetById_ShouldReturnCorrectResult()
+        public async Task GetById_ShouldReturnCorrectResult()
         {
             var seminarsDataService = new SeminarsDataService(this.TestAapiSeminarsContext, this.Mapper);
 
-            var seminar = seminarsDataService.GetById(3);
+            var seminar = await seminarsDataService.GetById(3);
 
             Assert.IsNotNull(seminar);
             Assert.AreEqual("Winter Seminar", seminar.Name);
         }
 
         [TestMethod]
-        public void Add_ShouldReturnCorrectCount()
+        public async Task Add_ShouldReturnCorrectCount()
         {
             var seminarsDataService = new SeminarsDataService(this.TestAapiSeminarsContext, this.Mapper);
 
@@ -66,13 +67,13 @@ namespace Aapi.Seminars.DataServices
                 Name = "Fall Seminar"
             };
 
-            seminarsDataService.Add(seminarAddCommandModel);
+            await seminarsDataService.Add(seminarAddCommandModel);
 
             Assert.AreEqual(3, this.TestAapiSeminarsContext.Seminars.Count());
         }
 
         [TestMethod]
-        public void Update_ShouldChangeProperty()
+        public async Task Update_ShouldChangeProperty()
         {
             var seminarsDataService = new SeminarsDataService(this.TestAapiSeminarsContext, this.Mapper);
 
@@ -82,17 +83,17 @@ namespace Aapi.Seminars.DataServices
                 Name = "Fall Seminar"
             };
 
-            seminarsDataService.Update(seminarUpdateCommandModel);
+            await seminarsDataService.Update(seminarUpdateCommandModel);
 
             Assert.AreEqual("Fall Seminar", this.TestAapiSeminarsContext.Seminars.Single(x => x.Id == 2).Name);
         }
 
         [TestMethod]
-        public void Delete_ShouldReturnCorrectCount()
+        public async Task Delete_ShouldReturnCorrectCount()
         {
             var seminarsDataService = new SeminarsDataService(this.TestAapiSeminarsContext, this.Mapper);
             
-            seminarsDataService.Delete(2);
+            await seminarsDataService.Delete(2);
 
             Assert.AreEqual(1, this.TestAapiSeminarsContext.Seminars.Count());
         }

@@ -1,5 +1,7 @@
 ﻿using Aapi.Seminars.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Aapi.Seminars.Contexts
 {
@@ -9,7 +11,7 @@ namespace Aapi.Seminars.Contexts
 
         DbSet<T> Set<T>() where T : class;
 
-        int SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken token = default(CancellationToken));
     }
 
     public class AapiSeminarsContext : DbContext, IAapiSeminarsContext
