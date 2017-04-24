@@ -1,25 +1,26 @@
 ﻿using Aapi.Seminars.Contexts;
+using AutoMapper;
 using System.Linq;
 
 namespace Aapi.Seminars.DataServices
 {
     public abstract class DataServiceBase
     {
-        public DataServiceBase(IAapiSeminarsContext aapiSeminarsContext)
+        public DataServiceBase(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
         {
             this.AapiSeminarsContext = aapiSeminarsContext;
+            this.Mapper = mapper;
         }
 
         protected IAapiSeminarsContext AapiSeminarsContext { get; }
+
+        protected IMapper Mapper { get; }
     }
 
     public abstract class DataServiceBase<T> : DataServiceBase where T : class
     {
-        protected const int DefaultPageNumber = 1;
-        protected const int DefaultPageSize = 25;
-
-        public DataServiceBase(IAapiSeminarsContext aapiSeminarsContext)
-            : base(aapiSeminarsContext)
+        public DataServiceBase(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
+            : base(aapiSeminarsContext, mapper)
         {
         }
 

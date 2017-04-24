@@ -4,6 +4,9 @@
     <RootNamespace>Aapi.Seminars</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.0.2" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Aapi.Seminars.Data\Aapi.Seminars.Data.csproj" />
   </ItemGroup>
 </Project>

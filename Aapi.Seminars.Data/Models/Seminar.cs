@@ -8,6 +8,9 @@ namespace Aapi.Seminars.Models
     public class Seminar
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        public string Name { get; set; }
     }
 }

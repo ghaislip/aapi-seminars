@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aapi.Seminars.Data.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aapi.Seminars.Business.Tests", "Aapi.Seminars.Business.Tests\Aapi.Seminars.Business.Tests.csproj", "{E63249E2-D235-42AE-83AF-036B8385B04E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aapi.Seminars.Api", "Aapi.Seminars.Api\Aapi.Seminars.Api.csproj", "{0E94D96E-6F28-4001-8AF5-05100E476665}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aapi.Seminars.Api.Tests", "Aapi.Seminars.Api.Tests\Aapi.Seminars.Api.Tests.csproj", "{294D0848-3B44-4827-B5F6-F94727DEE259}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{E63249E2-D235-42AE-83AF-036B8385B04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E63249E2-D235-42AE-83AF-036B8385B04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E63249E2-D235-42AE-83AF-036B8385B04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E94D96E-6F28-4001-8AF5-05100E476665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E94D96E-6F28-4001-8AF5-05100E476665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E94D96E-6F28-4001-8AF5-05100E476665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E94D96E-6F28-4001-8AF5-05100E476665}.Release|Any CPU.Build.0 = Release|Any CPU
+		{294D0848-3B44-4827-B5F6-F94727DEE259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{294D0848-3B44-4827-B5F6-F94727DEE259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{294D0848-3B44-4827-B5F6-F94727DEE259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{294D0848-3B44-4827-B5F6-F94727DEE259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

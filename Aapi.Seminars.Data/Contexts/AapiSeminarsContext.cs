@@ -8,6 +8,8 @@ namespace Aapi.Seminars.Contexts
         DbSet<Seminar> Seminars { get; set; }
 
         DbSet<T> Set<T>() where T : class;
+
+        int SaveChanges();
     }
 
     public class AapiSeminarsContext : DbContext, IAapiSeminarsContext
