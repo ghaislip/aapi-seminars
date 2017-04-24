@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.1.0-beta1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="1.1.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Aapi.Seminars.Business\Aapi.Seminars.Business.csproj" />

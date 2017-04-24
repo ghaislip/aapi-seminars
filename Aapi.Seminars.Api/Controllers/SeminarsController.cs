@@ -8,7 +8,7 @@ namespace Aapi.Seminars.Controllers
 {
     public class SeminarsController : AapiSeminarsControllerBase
     {
-        public SeminarsController(ILogger logger, ISeminarsDataService seminarsDataService)
+        public SeminarsController(ILogger<SeminarsController> logger, ISeminarsDataService seminarsDataService)
             : base(logger)
         {
             this.SeminarsDataService = seminarsDataService;

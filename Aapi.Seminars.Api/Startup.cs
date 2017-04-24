@@ -1,4 +1,4 @@
-﻿using Aapi.Seminars.DataServices;
+﻿using Aapi.Seminars.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,8 +9,9 @@ namespace Aapi.Seminars.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            services.AddTransient<ISeminarsDataService, SeminarsDataService>();
+            services.AddLogging();
+            services.AddAutoMapper();
+            services.AddAapiSeminars();
         }
         
         public void Configure(IApplicationBuilder app)

@@ -1,10 +1,15 @@
-﻿using Aapi.Seminars.Controllers;
+﻿using Aapi.Seminars.Api;
 using Aapi.Seminars.DataServices;
+using Aapi.Seminars.Extensions;
+using Aapi.Seminars.Helpers;
 using Aapi.Seminars.Models.Seminars;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Threading.Tasks;
 
-namespace Aapi.Seminars.Api.Tests.Controllers
+namespace Aapi.Seminars.Controllers
 {
     [TestClass]
     public class SeminarsControllerTests
@@ -70,6 +75,22 @@ namespace Aapi.Seminars.Api.Tests.Controllers
             seminarsController.Delete(42);
 
             seminarsDataServiceMock.Verify(x => x.Delete(42));
+        }
+
+        [TestMethod]
+        [TestCategory(TestCategoryHelper.Integration)]
+        public async Task GetAll_ShouldReturnSuccessfully()
+        {
+            // TODO: Refactor this to use the real context
+            var server = new TestServer(new WebHostBuilder()
+                .UseStartup<Startup>());
+            var client = server.CreateClient();
+
+            var response = await client.GetAsync("/api/seminars");
+            response.EnsureSuccessStatusCode();
+
+            var seminarsViewModel = await response.Content.ReadAsAsync<SeminarsViewModel>();
+            Assert.IsNotNull(seminarsViewModel);
         }
     }
 }

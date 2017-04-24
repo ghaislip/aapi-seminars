@@ -8,7 +8,7 @@ namespace Aapi.Seminars.Controllers
         protected const int DefaultPageNumber = 1;
         protected const int DefaultPageSize = 25;
 
-        public AapiSeminarsControllerBase(ILogger logger)
+        public AapiSeminarsControllerBase(ILogger<AapiSeminarsControllerBase> logger)
         {
             this.Logger = logger;
         }
