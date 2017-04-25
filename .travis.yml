@@ -3,3 +3,5 @@ solution: Aapi.Seminars.sln
 mono: none
 dotnet: 1.0.3
 dist: trusty
+script:
+    - dotnet build $TRAVIS_SOLUTION --configuration Release
