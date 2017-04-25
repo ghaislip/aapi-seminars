@@ -1,9 +1,11 @@
 language: csharp
-solution: Aapi.Seminars.sln
 mono: none
 dotnet: 1.0.3
 dist: trusty
 install:
     - dotnet restore
 script:
-    - dotnet build $TRAVIS_SOLUTION --configuration Release
+    - dotnet build Aapi.Seminars.sln --configuration Release
+    - dotnet test Aapi.Seminars.Api.Tests/Aapi.Seminars.Api.Tests.csproj --filter TestCategory!=Integration
+    - dotnet test Aapi.Seminars.Business.Tests/Aapi.Seminars.Business.Tests.csproj --filter TestCategory!=Integration
+    - dotnet test Aapi.Seminars.Data.Tests/Aapi.Seminars.Data.Tests.csproj --filter TestCategory!=Integration
