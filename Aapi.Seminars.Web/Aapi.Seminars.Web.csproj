@@ -5,18 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\index.html" />
-    <Content Include="wwwroot\js\aapi-seminars.js" />
-    <Content Include="wwwroot\js\vendor.js" />
-    <Content Include="wwwroot\js\polyfills.js" />
-    <Content Include="wwwroot\robots.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
