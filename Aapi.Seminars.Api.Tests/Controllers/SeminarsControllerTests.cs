@@ -1,5 +1,4 @@
-﻿using Aapi.Seminars.Api;
-using Aapi.Seminars.DataServices;
+﻿using Aapi.Seminars.DataServices;
 using Aapi.Seminars.Extensions;
 using Aapi.Seminars.Helpers;
 using Aapi.Seminars.Models.Seminars;
@@ -7,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Aapi.Seminars.Controllers
@@ -81,10 +81,11 @@ namespace Aapi.Seminars.Controllers
         [TestCategory(TestCategoryHelper.Integration)]
         public async Task GetAll_ShouldReturnSuccessfully()
         {
-            // TODO: Refactor this to use the real context
-            var server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
+            var webHostBuilder = new WebHostBuilder()
+                .UseStartup<TestStartup>();
+            var server = new TestServer(webHostBuilder);
             var client = server.CreateClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", TestStartup.TestOAuthToken);
 
             var response = await client.GetAsync("/api/seminars");
             response.EnsureSuccessStatusCode();

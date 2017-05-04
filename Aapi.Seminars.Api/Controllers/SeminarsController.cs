@@ -1,5 +1,6 @@
 ﻿using Aapi.Seminars.DataServices;
 using Aapi.Seminars.Models.Seminars;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Aapi.Seminars.Controllers
 {
+    [Authorize]
     public class SeminarsController : AapiSeminarsControllerBase
     {
         public SeminarsController(ILogger<SeminarsController> logger, ISeminarsDataService seminarsDataService)
