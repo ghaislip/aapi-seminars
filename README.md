@@ -2,3 +2,4 @@
 
 This project was created to help manage seminars for the [Alabama Association of Paralegals](http://alabamaparalegals.net).
 
+This is a test
