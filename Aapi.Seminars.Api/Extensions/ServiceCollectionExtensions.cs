@@ -45,6 +45,15 @@ namespace Aapi.Seminars.Extensions
             }).CreateMapper());
         }
 
+        public static void AddAapiSeminarControllers(this IServiceCollection self)
+        {
+            var aapiSeminarsControllerTypes = Constants.AapiSeminarsApiAssembly.GetAllControllerTypes();
+            foreach (var controllerType in aapiSeminarsControllerTypes)
+            {
+                self.AddTransient(controllerType);
+            }
+        }
+
         private static AapiSeminarsContext GetInMemorySeminarsContext()
         {
             var options = new DbContextOptionsBuilder<AapiSeminarsContext>()

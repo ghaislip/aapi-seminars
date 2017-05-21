@@ -12,6 +12,7 @@ namespace Aapi.Seminars.Api
         {
             services.AddOptions();
             services.AddMvc();
+            services.AddAapiSeminarControllers();
             services.AddLogging();
             services.AddAutoMapper();
             services.AddAapiSeminars();

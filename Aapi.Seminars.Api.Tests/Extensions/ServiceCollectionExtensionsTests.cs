@@ -14,5 +14,23 @@ namespace Aapi.Seminars.Extensions
 
             Assert.AreEqual(3, serviceCollection.Count);
         }
+
+        [TestMethod]
+        public void AddAapiSeminars_ShouldResolveAllControllers()
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddAapiSeminarControllers();
+            serviceCollection.AddLogging();
+            serviceCollection.AddAutoMapper();
+            serviceCollection.AddAapiSeminars();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+
+            var aapiSeminarsControllerTypes = Constants.AapiSeminarsApiAssembly.GetAllControllerTypes();
+            foreach (var controllerType in aapiSeminarsControllerTypes)
+            {
+                var controller = serviceProvider.GetService(controllerType);
+                Assert.IsNotNull(controller);
+            }
+        }
     }
 }
