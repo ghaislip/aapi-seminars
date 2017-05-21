@@ -9,6 +9,3 @@ import 'rxjs';
 
 // HammerJS
 import 'hammerjs';
-
-// AAPi Seminars
-import '../scss/aapi-seminars.scss';
