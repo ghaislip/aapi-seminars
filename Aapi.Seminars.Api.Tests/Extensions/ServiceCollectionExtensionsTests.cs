@@ -12,7 +12,7 @@ namespace Aapi.Seminars.Extensions
             var serviceCollection = new ServiceCollection();
             serviceCollection.AddAapiSeminars();
 
-            Assert.AreEqual(3, serviceCollection.Count);
+            Assert.AreEqual(4, serviceCollection.Count);
         }
 
         [TestMethod]

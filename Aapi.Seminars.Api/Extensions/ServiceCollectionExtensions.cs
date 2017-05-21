@@ -34,6 +34,7 @@ namespace Aapi.Seminars.Extensions
 
             // Data Services
             self.AddTransient<ISeminarsDataService, SeminarsDataService>();
+            self.AddTransient<IFrequentlyAskedQuestionsDataService, DummyFrequentlyAskedQuestionsDataService>();
         }
 
         public static void AddAutoMapper(this IServiceCollection self)
