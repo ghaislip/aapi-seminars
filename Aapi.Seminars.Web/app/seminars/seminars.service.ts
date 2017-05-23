@@ -1,18 +1,18 @@
 ﻿import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class SeminarsService {
-    public getSeminars(): any[] {
-        return [
-            {
-                name: 'Summer 2017'
-            },
-            {
-                name: 'Winter 2017'
-            },
-            {
-                name: 'Summer 2019'
-            }
-        ];
+    private rootApiUrl: string = 'http://localhost:58270';
+
+    public constructor(private http: Http) { }
+
+    public getSeminars(): Observable<any> {
+        const seminarsRelativeUrl: string = 'api/seminars';
+        return this.http.get(`${this.rootApiUrl}/${seminarsRelativeUrl}`)
+            .map((response: Response) => {
+                return response.json();
+            });
     }
 }

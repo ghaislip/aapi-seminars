@@ -7,9 +7,12 @@ import { SeminarsService } from './seminars.service';
     styleUrls: ['./seminars.component.scss']
 })
 export class SeminarsComponent {
-    public seminars: any[];
+    public seminarsViewModel: any = {};
 
     public constructor(private seminarsService: SeminarsService) {
-        this.seminars = this.seminarsService.getSeminars();
+        this.seminarsService.getSeminars()
+            .subscribe((seminarsViewModel: any) => {
+                this.seminarsViewModel = seminarsViewModel;
+            });
     }
 }
