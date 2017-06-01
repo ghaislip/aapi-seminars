@@ -34,7 +34,7 @@ namespace Aapi.Seminars.Extensions
 
             // Data Services
             self.AddTransient<ISeminarsDataService, SeminarsDataService>();
-            self.AddTransient<IFrequentlyAskedQuestionsDataService, DummyFrequentlyAskedQuestionsDataService>();
+            self.AddTransient<IFrequentlyAskedQuestionsDataService, FrequentlyAskedQuestionsDataService>();
         }
 
         public static void AddAutoMapper(this IServiceCollection self)
@@ -61,8 +61,13 @@ namespace Aapi.Seminars.Extensions
                 .UseInMemoryDatabase()
                 .Options;
             var inMemoryAapiSeminarsContext = new AapiSeminarsContext(options);
+
             inMemoryAapiSeminarsContext.Seminars.Add(new Seminar { Name = "Summer Seminar" });
             inMemoryAapiSeminarsContext.Seminars.Add(new Seminar { Name = "Winter Seminar" });
+
+            inMemoryAapiSeminarsContext.FrequentlyAskedQuestions.Add(new FrequentlyAskedQuestion { Question = "Where are we meeting?", Answer = "The Beach." });
+            inMemoryAapiSeminarsContext.FrequentlyAskedQuestions.Add(new FrequentlyAskedQuestion { Question = "Where can I stay?", Answer = "Island House Hotel." });
+
             inMemoryAapiSeminarsContext.SaveChanges();
             return inMemoryAapiSeminarsContext;
         }

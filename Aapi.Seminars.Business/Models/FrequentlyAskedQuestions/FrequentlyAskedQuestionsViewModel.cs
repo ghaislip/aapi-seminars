@@ -4,6 +4,7 @@ namespace Aapi.Seminars.Models.FrequentlyAskedQuestions
 {
     public class FrequentlyAskedQuestionsViewModel
     {
-        public IList<FrequentlyAskedQuestion> FrequentlyAskedQuestions { get; set; }
+        public IList<FrequentlyAskedQuestion> Results { get; set; }
+        public int TotalItemCount { get; set; }
     }
 }

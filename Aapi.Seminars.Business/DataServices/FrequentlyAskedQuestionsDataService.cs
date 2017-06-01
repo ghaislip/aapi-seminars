@@ -1,7 +1,10 @@
-﻿using Aapi.Seminars.Models;
-using Aapi.Seminars.Models.FrequentlyAskedQuestions;
-using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using Aapi.Seminars.Contexts;
+using Aapi.Seminars.Models;
+using Aapi.Seminars.Models.FrequentlyAskedQuestions;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aapi.Seminars.DataServices
 {
@@ -9,23 +12,26 @@ namespace Aapi.Seminars.DataServices
     {
         Task<FrequentlyAskedQuestionsViewModel> GetAll(int pageNumber, int pageSize);
     }
-    public class DummyFrequentlyAskedQuestionsDataService : IFrequentlyAskedQuestionsDataService
+
+    public class FrequentlyAskedQuestionsDataService : DataServiceBase<FrequentlyAskedQuestion>, IFrequentlyAskedQuestionsDataService
     {
-        public Task<FrequentlyAskedQuestionsViewModel> GetAll(int pageNumber, int pageSize)
+        public FrequentlyAskedQuestionsDataService(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
+            : base(aapiSeminarsContext, mapper)
         {
-            var frequentlyAskedQuestionsViewModel = new FrequentlyAskedQuestionsViewModel
+        }
+
+        public async Task<FrequentlyAskedQuestionsViewModel> GetAll(int pageNumber, int pageSize)
+        {
+            return new FrequentlyAskedQuestionsViewModel
             {
-                FrequentlyAskedQuestions = new List<FrequentlyAskedQuestion>
-                {
-                    new FrequentlyAskedQuestion
-                    {
-                        Id = 1,
-                        Question = "",
-                        Answer = "",
-                    }
-                }
+                Results = await this.DbSet
+                    .OrderBy(x => x.Id)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync(),
+                TotalItemCount = await this.DbSet
+                    .CountAsync()
             };
-            return Task.FromResult(frequentlyAskedQuestionsViewModel);
         }
     }
 }

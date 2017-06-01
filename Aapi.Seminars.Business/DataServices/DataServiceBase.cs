@@ -6,7 +6,7 @@ namespace Aapi.Seminars.DataServices
 {
     public abstract class DataServiceBase
     {
-        public DataServiceBase(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
+        protected DataServiceBase(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
         {
             this.AapiSeminarsContext = aapiSeminarsContext;
             this.Mapper = mapper;
@@ -19,7 +19,7 @@ namespace Aapi.Seminars.DataServices
 
     public abstract class DataServiceBase<T> : DataServiceBase where T : class
     {
-        public DataServiceBase(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
+        protected DataServiceBase(IAapiSeminarsContext aapiSeminarsContext, IMapper mapper)
             : base(aapiSeminarsContext, mapper)
         {
         }
