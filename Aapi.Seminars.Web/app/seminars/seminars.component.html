@@ -1,4 +1,6 @@
 ﻿<h1>Seminars</h1>
 <md-list>
-    <md-list-item *ngFor="let seminar of seminarsViewModel.results">{{seminar.name}}</md-list-item>
+    <md-list-item *ngFor="let seminar of seminarsViewModel.results">
+        <a [routerLink]="['/seminars', seminar.id]">{{seminar.name}}</a>
+    </md-list-item>
 </md-list>

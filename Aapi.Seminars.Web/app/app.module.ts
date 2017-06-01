@@ -11,10 +11,12 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { SeminarsComponent } from './seminars/seminars.component';
 import { SeminarsService } from './seminars/seminars.service';
+import { SeminarDetailComponent } from './seminars/seminarDetail.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent },
-    { path: 'seminars', component: SeminarsComponent }
+    { path: 'seminars', component: SeminarsComponent },
+    { path: 'seminars/:id', component: SeminarDetailComponent }
 ];
 
 @NgModule({
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
         HeaderComponent,
         FooterComponent,
         HomeComponent,
-        SeminarsComponent
+        SeminarsComponent,
+        SeminarDetailComponent
     ],
     providers: [
         SeminarsService

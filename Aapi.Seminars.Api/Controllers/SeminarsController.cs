@@ -25,7 +25,7 @@ namespace Aapi.Seminars.Controllers
             return await this.SeminarsDataService.GetAll(pageNumber, pageSize);
         }
 
-        [HttpGet("api/seminar")]
+        [HttpGet("api/seminar/{id}")]
         public async Task<SeminarViewModel> GetById(int id)
         {
             return await this.SeminarsDataService.GetById(id);
